@@ -28,28 +28,26 @@ int main()
     gameSpace2.setPosition(sf::Vector2f(1280, 0));
 
     sf::Vector2f pos;
-    sf::Clock clock, clockAnim;
+    sf::Clock clock, clockAnimPlay;
     float time, timeShip, timeBackground;
     //.........................................
 
     // космический корабль
     sf::Vector2f moveRec; // передвижеине игрока
+    int traffic = 0;
     sf::Texture textureShip;
-    textureShip.loadFromFile("pictures/player.png");
-    sf::RectangleShape ship(sf::Vector2f(50,30));
-    ship.setTexture(&textureShip);
+
+    FrameAnime FramePlanim;
+    FramePlanim.Frame = 700;
+    textureShip.loadFromFile("pictures/playeranim1.png");
+
+    sf::Sprite ship;
+    ship.setTexture(textureShip);
+    ship.setTextureRect(sf::IntRect(0, FramePlanim.Frame, 90, 90));
+    
     ship.setPosition(sf::Vector2f(80, 380));
     //.........................................
-    //Анимация струи коробля
-    int arrAnim[3] = { 9,59,103 };
-    int frame = 2, stepAnim = -1;
-
-
-    sf::Texture heroTexture;
-    heroTexture.loadFromFile("pictures/anim.png");
-    sf::Sprite heroSprite;
-    heroSprite.setTexture(heroTexture);
-    heroSprite.setTextureRect(sf::IntRect(0,103,85,43));
+   
     
     while (window.isOpen()) 
     {
@@ -71,12 +69,15 @@ int main()
             case sf::Event::KeyPressed:
                 if ((event.key.code == sf::Keyboard::S)) {
                     moveRec.y = 0.5 * timeShip;
+                    traffic = 2;
                 }
                 if ((event.key.code == sf::Keyboard::W)) {
                     moveRec.y = -0.5 * timeShip;
+                    traffic = 1;
                 }
                 if ((event.key.code == sf::Keyboard::A)) {
                     moveRec.x = -0.5 * timeShip;
+                    
                 }
                 if ((event.key.code == sf::Keyboard::D)) {
                     moveRec.x = 0.5 * timeShip;
@@ -86,9 +87,11 @@ int main()
             case sf::Event::KeyReleased:
                 if ((event.key.code == sf::Keyboard::S)) {
                     moveRec.y = 0;
+                    traffic = 0;
                 }
                 if ((event.key.code == sf::Keyboard::W)) {
                     moveRec.y = 0;
+                    traffic = 0;
                 }
                 if ((event.key.code == sf::Keyboard::A)) {
                     moveRec.x = 0;
@@ -106,18 +109,15 @@ int main()
         }
 
 
-        if (clockAnim.getElapsedTime() > sf::milliseconds(100)) {
-            clock.restart();
-            frame += stepAnim;
-            heroSprite.setTextureRect(sf::IntRect(0, arrAnim[frame], 85, 43));
-            if (frame == 0) {
-                stepAnim = 1;
-            }
-            if (frame == 2) {
-                stepAnim = -1;
-            }
+        if (clockAnimPlay.getElapsedTime() > sf::milliseconds(100)) {
+            clockAnimPlay.restart();
+
+            playerAnim(ship, FramePlanim, traffic);
+           
         }
-        heroSprite.setPosition(sf::Vector2f(ship.getPosition().x - 80, ship.getPosition().y - 4));
+        
+
+
         // отрисоввка космаса
         gameSpace.move(-0.2 * timeBackground,0);
         pos = gameSpace.getPosition();
@@ -141,7 +141,7 @@ int main()
         window.draw(gameSpace2);
         window.draw(gameInfoPanel);
         window.draw(ship);
-        window.draw(heroSprite);
+        
         window.display();
 
     }
