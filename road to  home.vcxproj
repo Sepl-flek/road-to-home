@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Meteor.cpp" />
     <ClCompile Include="playermove.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,8 +149,8 @@
     <None Include="sfml-window-d-2.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Meteor.h" />
     <ClInclude Include="playermove.h" />
-    <ClInclude Include="worklib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

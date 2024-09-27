@@ -21,6 +21,9 @@
     <ClCompile Include="playermove.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Meteor.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="sfml-window-d-2.dll" />
@@ -39,7 +42,7 @@
     <ClInclude Include="playermove.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="worklib.h">
+    <ClInclude Include="Meteor.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
